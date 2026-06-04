@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Appointment System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-icon">🏥</div>
+            <div class="brand-name">Patient Appointment System</div>
+</header>
+<main class="main-wrap">
+
+    <!-- ─── BOOKING FORM ─── -->
+    <div class="card">
+        <div class="card-title">
+            <span class="title-line"></span>
+            <span id="formTitle">📅 Book Appointment</span>
+        </div>
+
+        <input type="hidden" id="appt_id" value="0">
+
+        <form id="appointmentForm" novalidate>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="patient_name">Patient Name</label>
+                    <input type="text" id="patient_name" placeholder="Your name" maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Your mail" maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" placeholder="Your number" maxlength="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctor_id">Select Doctor</label>
+                    <select id="doctor_id" required>
+                        <option value="">— Loading doctors... —</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointment_date">Appointment Date</label>
+                    <input type="date" id="appointment_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointment_time">Appointment Time (08:00 AM-PM)</label>
+                    <input type="time" id="appointment_time" min="08:00" max="20:00" required>
+                </div>
+
+                <div id="slotInfo" class="slot-info"></div>
+
+            </div>
+
+            <div id="formError"></div>
+
+            <div class="form-actions">
+                <button type="submit" id="submitBtn" class="btn btn-primary">📅 Book Appointment</button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline"
+                        onclick="cancelEdit()" style="display:none;">✖ Cancel Edit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ─── APPOINTMENTS TABLE ─── -->
+    <div class="card">
+        <div class="table-header">
+            <div class="card-title" style="margin-bottom:0;">
+                <span class="title-line"></span>
+                <span>📋 All Appointments</span>
+            </div>
+            <button class="btn btn-outline" onclick="loadAppointments()" style="padding:8px 16px;font-size:0.85rem;">
+                🔄 Refresh
+            </button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Patient</th>
+                        <th>Mobile</th>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentTableBody">
+                    <tr><td colspan="8" class="loading-row"><div class="spinner"></div> Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
